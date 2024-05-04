@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "Photograph",
+  title: { default: "Photograph", template: "%s | Photograph" },
   description: "Curated photography from around the world.",
 };
 

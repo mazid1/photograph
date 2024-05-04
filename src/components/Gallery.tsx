@@ -1,7 +1,12 @@
-import { getCuratedPhotos } from "@/lib/getCuratedPhotos";
+import { fetchPhotos } from "@/lib/fetchPhotos";
 
-async function Gallery() {
-  const photoPage = await getCuratedPhotos();
+type GalleryProps = {
+  query: string;
+  page: number;
+};
+
+async function Gallery(props: GalleryProps) {
+  const photoPage = await fetchPhotos(props);
 
   if (!photoPage) {
     return <section className="px-2 my-3">No photos found</section>;
