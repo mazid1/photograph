@@ -16,9 +16,13 @@ export const getCuratedPhotos = async (page: number = 1) => {
     if (!response.ok) throw new Error("Failed to fetch photos");
 
     const data = await response.json();
-    const photoPage = PageResponseSchema.parse(data);
-    console.log(photoPage);
-    return photoPage;
+    const parsedData = PageResponseSchema.parse(data);
+
+    if (parsedData.total_results === 0) {
+      return undefined;
+    }
+
+    return parsedData;
   } catch (error) {
     console.error(error);
   }

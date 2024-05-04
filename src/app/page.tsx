@@ -1,6 +1,5 @@
-import { getCuratedPhotos } from "@/lib/getCuratedPhotos";
+import Gallery from "@/components/Gallery";
 
 export default async function Home() {
-  const photos = await getCuratedPhotos();
-  return <div>{JSON.stringify(photos, null, 2)}</div>;
+  return <Gallery />;
 }
