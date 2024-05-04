@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Search from "./Search";
 
 function Navbar() {
   return (
@@ -10,13 +11,7 @@ function Navbar() {
           </Link>
         </div>
         <div className="flex-none gap-2">
-          <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
-            />
-          </div>
+          <Search />
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
