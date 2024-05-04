@@ -18,7 +18,7 @@ async function Gallery(props: GalleryProps) {
         /* eslint-disable-next-line @next/next/no-img-element */
         <img
           key={photo.id}
-          src={photo.src.original}
+          src={`/.netlify/images?url=${photo.src.original}&fit=cover&position=center&w=250`}
           alt={photo.alt}
           width={photo.width}
           height={photo.height}
