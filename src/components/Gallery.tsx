@@ -3,6 +3,7 @@ import { fetchPhotos } from "@/lib/fetchPhotos";
 import { PageResponse } from "@/models/Photo";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import PhotoContainer from "./PhotoContainer";
 
 type GalleryProps = {
   initialPage: PageResponse | undefined;
@@ -46,17 +47,9 @@ function Gallery({ initialPage }: GalleryProps) {
 
   return (
     <section>
-      <div className="px-2 my-3 grid grid-cols-gallery gap-6 place-content-center place-items-center">
+      <div className="px-2 my-3 grid grid-cols-gallery auto-rows-[10px] place-content-center place-items-center">
         {photoPage?.photos.map((photo) => (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            key={photo.id}
-            src={`/.netlify/images?url=${photo.src.original}&fit=cover&position=center&w=250`}
-            alt={photo.alt}
-            width={photo.width}
-            height={photo.height}
-            className="rounded-lg object-cover "
-          />
+          <PhotoContainer key={photo.id} photo={photo} />
         ))}
       </div>
       <div ref={ref} className="w-full text-center mb-3">
