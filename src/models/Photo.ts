@@ -9,6 +9,7 @@ export const PhotoSchema = z.object({
     original: z.string(),
   }),
   alt: z.string(),
+  avg_color: z.string(),
 });
 
 export type Photo = z.infer<typeof PhotoSchema>;

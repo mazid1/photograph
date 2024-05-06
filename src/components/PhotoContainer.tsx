@@ -20,6 +20,8 @@ function PhotoContainer({ photo }: PhotoContainerProps) {
         alt={photo.alt}
         width={photo.width}
         height={photo.height}
+        className="w-full h-full object-cover object-center"
+        style={{ backgroundColor: photo.avg_color }}
       />
     </div>
   );
