@@ -1,19 +1,19 @@
+"use server";
 import { PageResponseSchema } from "@/models/Photo";
 import { env } from "./env";
 
 type FetchPhotosParams = {
   query?: string;
-  page?: number;
+  url?: string | URL;
 };
 
-export const fetchPhotos = async ({ query, page = 1 }: FetchPhotosParams) => {
-  let url: URL;
-  if (query) {
-    url = new URL(
-      `https://api.pexels.com/v1/search?query=${query}&page=${page}`
-    );
-  } else {
-    url = new URL(`https://api.pexels.com/v1/curated?page=${page}`);
+export const fetchPhotos = async ({ query, url }: FetchPhotosParams) => {
+  if (!url) {
+    if (query) {
+      url = new URL(`https://api.pexels.com/v1/search?query=${query}`);
+    } else {
+      url = new URL(`https://api.pexels.com/v1/curated`);
+    }
   }
 
   try {
