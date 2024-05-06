@@ -47,7 +47,7 @@ function Gallery({ initialPage }: GalleryProps) {
 
   return (
     <section>
-      <div className="px-2 my-3 grid grid-cols-gallery auto-rows-[10px] place-content-center place-items-center">
+      <div className="px-2 my-1 grid grid-cols-gallery auto-rows-[10px] gap-x-3 place-content-center place-items-center">
         {photoPage?.photos.map((photo) => (
           <PhotoContainer key={photo.id} photo={photo} />
         ))}
