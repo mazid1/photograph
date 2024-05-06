@@ -1,40 +1,35 @@
 "use client";
 import { fetchPhotos } from "@/lib/fetchPhotos";
 import { PageResponse } from "@/models/Photo";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 
 type GalleryProps = {
-  query: string;
+  initialPage: PageResponse | undefined;
 };
 
-function Gallery({ query }: GalleryProps) {
-  const [photoPage, setPhotoPage] = useState<PageResponse>();
-  const [isLoading, setIsLoading] = useState(true);
-
-  const loadPhotos = useCallback(
-    async (url?: string | URL) => {
-      setIsLoading(true);
-      const responsePage = await fetchPhotos(url ? { url } : { query });
-      setPhotoPage((prev) => {
-        if (!prev) {
-          return responsePage;
-        }
-        if (!responsePage) {
-          return prev;
-        }
-        return {
-          ...responsePage,
-          photos: [...prev.photos, ...responsePage.photos],
-        };
-      });
-      setIsLoading(false);
-    },
-    [query]
+function Gallery({ initialPage }: GalleryProps) {
+  const [photoPage, setPhotoPage] = useState<PageResponse | undefined>(
+    initialPage
   );
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    loadPhotos();
-  }, [loadPhotos]);
+  const loadMore = async (url: string | URL) => {
+    setIsLoading(true);
+    const responsePage = await fetchPhotos({ url });
+    setPhotoPage((prev) => {
+      if (!prev) {
+        return responsePage;
+      }
+      if (!responsePage) {
+        return prev;
+      }
+      return {
+        ...responsePage,
+        photos: [...prev.photos, ...responsePage.photos],
+      };
+    });
+    setIsLoading(false);
+  };
 
   if (!photoPage && !isLoading) {
     return <section className="px-2 my-3">No photos found</section>;
@@ -55,16 +50,18 @@ function Gallery({ query }: GalleryProps) {
           />
         ))}
       </div>
-      <div className="w-100 flex">
-        <button
-          onClick={() => loadPhotos(photoPage?.next_page)}
-          disabled={isLoading}
-          className="btn btn-primary mx-auto"
-        >
-          {isLoading && <span className="loading loading-spinner"></span>}
-          {isLoading ? "Loading..." : "Load more"}
-        </button>
-      </div>
+      {photoPage?.next_page && (
+        <div className="w-100 flex">
+          <button
+            onClick={() => loadMore(photoPage.next_page!)}
+            disabled={isLoading}
+            className="btn btn-primary mx-auto"
+          >
+            {isLoading && <span className="loading loading-spinner"></span>}
+            {isLoading ? "Loading..." : "Load more"}
+          </button>
+        </div>
+      )}
     </section>
   );
 }

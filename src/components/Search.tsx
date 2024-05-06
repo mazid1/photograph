@@ -1,17 +1,25 @@
-import { redirect } from "next/navigation";
+"use client";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
-async function Search() {
-  const handleSubmit = async (formData: FormData) => {
-    "use server";
-    const query = formData.get("query") as string;
-    if (!query) return;
-    redirect(`?query=${query}`);
+function Search() {
+  const [query, setQuery] = useState<string>("");
+  const router = useRouter();
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (query) {
+      router.push(`/search/${query}`);
+    }
+    setQuery("");
   };
 
   return (
-    <form action={handleSubmit} className="form-control">
+    <form onSubmit={handleSubmit} className="form-control">
       <input
         name="query"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
         type="text"
         placeholder="Search"
         className="input input-bordered w-24 md:w-auto"
