@@ -3,6 +3,7 @@ import {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -30,12 +31,25 @@ export const ModalContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   const closeModal = () => {
+    setModalContent(null);
     modalRef.current?.close();
   };
 
   const isModalOpen = () => {
     return modalRef.current?.open ?? false;
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <ModalContext.Provider
@@ -51,7 +65,10 @@ export const ModalContextProvider = ({ children }: PropsWithChildren) => {
         <div className="modal-box">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            <button
+              onClick={closeModal}
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 outline-none"
+            >
               ✕
             </button>
           </form>
