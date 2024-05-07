@@ -4,6 +4,7 @@ import { PageResponse } from "@/models/Photo";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import PhotoContainer from "./PhotoContainer";
+import { ModalContextProvider } from "@/context/ModalContext";
 
 type GalleryProps = {
   initialPage: PageResponse | undefined;
@@ -47,14 +48,16 @@ function Gallery({ initialPage }: GalleryProps) {
 
   return (
     <section>
-      <div className="px-2 my-1 grid grid-cols-gallery auto-rows-[10px] gap-x-3 place-content-center place-items-center">
-        {photoPage?.photos.map((photo) => (
-          <PhotoContainer key={photo.id} photo={photo} />
-        ))}
-      </div>
-      <div ref={ref} className="w-full text-center mb-3">
-        Loading...
-      </div>
+      <ModalContextProvider>
+        <div className="px-2 my-1 grid grid-cols-gallery auto-rows-[10px] gap-x-3 place-content-center place-items-center">
+          {photoPage?.photos.map((photo) => (
+            <PhotoContainer key={photo.id} photo={photo} />
+          ))}
+        </div>
+        <div ref={ref} className="w-full text-center mb-3">
+          Loading...
+        </div>
+      </ModalContextProvider>
     </section>
   );
 }
