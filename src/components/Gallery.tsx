@@ -1,5 +1,5 @@
 "use client";
-import { fetchPhotos } from "@/lib/fetchPhotos";
+import { fetchPhotos } from "@/actions/fetchPhotos";
 import { PageResponse } from "@/models/Photo";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";

@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@netlify/blobs": "^7.3.0",
-    "@netlify/functions": "^2.6.3",
     "bcrypt": "^5.1.1",
     "envalid": "^8.0.0",
     "jsonwebtoken": "^9.0.2",

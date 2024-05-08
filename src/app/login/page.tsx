@@ -9,6 +9,7 @@ function LoginPage() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const loginUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,8 +17,7 @@ function LoginPage() {
     if (response && !response.error) {
       router.push("/");
     } else {
-      // todo: implement propar error handling
-      console.log(response?.error);
+      setError(String(response?.error));
     }
   };
 
@@ -42,9 +42,10 @@ function LoginPage() {
               autoComplete="email"
               required
               value={data.email}
-              onChange={(e) =>
-                setData((prev) => ({ ...prev, email: e.target.value }))
-              }
+              onChange={(e) => {
+                setError("");
+                setData((prev) => ({ ...prev, email: e.target.value }));
+              }}
               className="input input-bordered w-full"
             />
           </div>
@@ -60,9 +61,10 @@ function LoginPage() {
               autoComplete="current-password"
               required
               value={data.password}
-              onChange={(e) =>
-                setData((prev) => ({ ...prev, password: e.target.value }))
-              }
+              onChange={(e) => {
+                setError("");
+                setData((prev) => ({ ...prev, password: e.target.value }));
+              }}
               className="input input-bordered w-full"
             />
           </div>
@@ -70,6 +72,25 @@ function LoginPage() {
           <button type="submit" className="btn btn-primary normal-case w-full">
             Login
           </button>
+
+          {error && (
+            <div role="alert" className="alert alert-error">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="stroke-current shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{error}</span>
+            </div>
+          )}
         </form>
       </div>
     </div>
