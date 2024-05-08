@@ -1,24 +1,31 @@
 "use client";
 import register from "@/actions/register";
+import { isObject } from "@/lib/isObject";
+import { cn } from "@/lib/utils";
+import { ResponseType } from "@/models/ResponseType";
+import { User } from "@/models/User";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useRef } from "react";
+import { useFormState } from "react-dom";
+import SubmitButton from "./SubmitButton";
+
+const initialState: ResponseType<User> = {
+  success: false,
+  data: undefined,
+  error: undefined,
+  errorType: undefined,
+  message: undefined,
+};
 
 function RegisterPage() {
   const router = useRouter();
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const ref = useRef<HTMLFormElement>(null);
+  const [{ success, error }, formAction] = useFormState(register, initialState);
 
-  const registerUser = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const response = await register(data);
-    if (!response.success) {
-      return;
-    }
+  if (success) {
+    ref.current?.reset();
     router.push("/login");
-  };
+  }
 
   return (
     <div className="flex gap-4 min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -29,7 +36,7 @@ function RegisterPage() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={registerUser}>
+        <form action={formAction} ref={ref} className="space-y-6">
           <div className="form-control w-full">
             <label htmlFor="name" className="label">
               <span className="label-text">Full name</span>
@@ -40,12 +47,15 @@ function RegisterPage() {
               type="text"
               autoComplete="off"
               required
-              value={data.name}
-              onChange={(e) =>
-                setData((prev) => ({ ...prev, name: e.target.value }))
-              }
-              className="input input-bordered w-full"
+              className={cn("input input-bordered w-full", {
+                "input-error": isObject(error) && error.name,
+              })}
             />
+            {isObject(error) && error.name && (
+              <div className="label">
+                <span className="label-text-alt">{error.name[0]}</span>
+              </div>
+            )}
           </div>
 
           <div className="form-control w-full">
@@ -58,12 +68,15 @@ function RegisterPage() {
               type="email"
               autoComplete="email"
               required
-              value={data.email}
-              onChange={(e) =>
-                setData((prev) => ({ ...prev, email: e.target.value }))
-              }
-              className="input input-bordered w-full"
+              className={cn("input input-bordered w-full", {
+                "input-error": isObject(error) && error.email,
+              })}
             />
+            {isObject(error) && error.email && (
+              <div className="label">
+                <span className="label-text-alt">{error.email[0]}</span>
+              </div>
+            )}
           </div>
 
           <div className="form-control w-full">
@@ -76,17 +89,23 @@ function RegisterPage() {
               type="password"
               autoComplete="current-password"
               required
-              value={data.password}
-              onChange={(e) =>
-                setData((prev) => ({ ...prev, password: e.target.value }))
-              }
-              className="input input-bordered w-full"
+              className={cn("input input-bordered w-full", {
+                "input-error": isObject(error) && error.password,
+              })}
             />
+            {isObject(error) && error.password && (
+              <div className="label">
+                <span className="label-text-alt">{error.password[0]}</span>
+              </div>
+            )}
           </div>
 
-          <button type="submit" className="btn btn-primary normal-case w-full">
+          <SubmitButton
+            type="submit"
+            className="btn btn-primary normal-case w-full"
+          >
             Register
-          </button>
+          </SubmitButton>
         </form>
       </div>
     </div>
