@@ -5,8 +5,14 @@ import { hash } from "bcrypt";
 import { getStore } from "@netlify/blobs";
 
 export default async function register(
-  registerDto: RegisterDto
+  prevState: ResponseType<User>,
+  formData: FormData
 ): Promise<ResponseType<User>> {
+  const registerDto: RegisterDto = {
+    name: formData.get("name") as string,
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
   const parsedData = RegisterSchema.safeParse(registerDto);
 
   if (!parsedData.success) {
