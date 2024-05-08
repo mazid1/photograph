@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/nav/Navbar";
+import NextAuthProvider from "@/context/NextAuthProvider";
 
 export const metadata: Metadata = {
   title: { default: "Photograph", template: "%s | Photograph" },
@@ -17,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main className="max-w-6xl mx-auto">{children}</main>
+        <NextAuthProvider>
+          <Navbar />
+          <main className="max-w-6xl mx-auto">{children}</main>
+        </NextAuthProvider>
       </body>
     </html>
   );

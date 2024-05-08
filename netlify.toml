@@ -1,2 +1,4 @@
 [images]
   remote_images = ["https://images.pexels.com/photos/.*"]
+[functions]
+  directory = "src/functions"
