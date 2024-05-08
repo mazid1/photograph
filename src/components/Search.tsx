@@ -22,7 +22,7 @@ function Search() {
         onChange={(e) => setQuery(e.target.value)}
         type="text"
         placeholder="Search"
-        className="input input-bordered w-24 md:w-auto"
+        className="input input-bordered w-24 sm:w-auto"
       />
     </form>
   );
