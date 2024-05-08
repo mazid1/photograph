@@ -1,6 +1,6 @@
 "use server";
 import { PageResponseSchema } from "@/models/Photo";
-import { env } from "./env";
+import { env } from "../lib/env";
 
 type FetchPhotosParams = {
   query?: string;

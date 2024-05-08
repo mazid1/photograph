@@ -1,5 +1,5 @@
 import Gallery from "@/components/Gallery";
-import { fetchPhotos } from "@/lib/fetchPhotos";
+import { fetchPhotos } from "@/actions/fetchPhotos";
 
 type SearchProps = {
   params: {

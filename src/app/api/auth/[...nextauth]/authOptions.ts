@@ -4,10 +4,9 @@ import { NextAuthOptions } from "next-auth";
 import jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import { env } from "@/lib/env";
-import getUserByEmail from "@/lib/getUserByEmail";
+import { getStore } from "@netlify/blobs";
 
 export type SessionUser = {
-  id: string;
   email: string;
   name: string;
 };
@@ -31,19 +30,20 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Wrong credentials. Try again.");
         }
 
-        const user = await getUserByEmail(email);
+        const userStore = getStore("user");
+        const user = await userStore.get(email, { type: "json" });
 
         if (!user) {
           throw new Error("Wrong credentials. Try again.");
         }
 
-        const isValid = await compare(password, user.passwordHash);
+        const isValid = await compare(password, user.password!);
 
         if (!isValid) {
           throw new Error("Wrong credentials. Try again.");
         }
 
-        return { ...user, id: String(user.id), passwordHash: undefined };
+        return { ...user, id: user.id!, password: undefined };
       },
     }),
   ],

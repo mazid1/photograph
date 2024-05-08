@@ -1,4 +1,5 @@
 "use client";
+import register from "@/actions/register";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
@@ -12,27 +13,11 @@ function RegisterPage() {
 
   const registerUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch("/.netlify/functions/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const userInfo = await response.json();
-
-      if (userInfo?.error) {
-        throw new Error(userInfo.error);
-      }
-
-      router.push("/login");
-    } catch (error: any) {
-      // todo: implement proper error handling
-      console.log(error?.message);
+    const response = await register(data);
+    if (!response.success) {
+      return;
     }
+    router.push("/login");
   };
 
   return (
