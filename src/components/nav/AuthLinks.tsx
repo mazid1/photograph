@@ -8,7 +8,6 @@ function AuthLinks() {
   const { data: session } = useSession();
 
   if (session?.user) {
-    console.log(session.user);
     return <UserMenu name={session.user.name!} email={session.user.email!} />;
   }
 
