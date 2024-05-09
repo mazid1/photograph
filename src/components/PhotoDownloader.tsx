@@ -1,7 +1,7 @@
 "use client";
 import { Photo } from "@/models/Photo";
 import React, { useReducer, useState } from "react";
-import Check from "./Check";
+import CheckIcon from "./icons/CheckIcon";
 import { downloadImage } from "@/lib/downloadImage";
 
 type PhotoDownloaderProps = {
@@ -91,7 +91,7 @@ function PhotoDownloader({ photo }: PhotoDownloaderProps) {
   };
 
   return (
-    <div className="join mx-auto">
+    <div className="join">
       <button
         className="btn btn-primary join-item"
         onClick={handleDownload}
@@ -115,14 +115,14 @@ function PhotoDownloader({ photo }: PhotoDownloaderProps) {
                 <span className="text-gray-400 dark:text-gray-500">
                   {item.width}x{item.height}
                 </span>
-                {selectedOption === idx && <Check />}
+                {selectedOption === idx && <CheckIcon />}
               </button>
             </li>
           ))}
           <li onClick={() => setSelectedOption(4)}>
             <div className="flex flex-col">
               <div className="flex justify-between w-full">
-                Custom {selectedOption === 4 && <Check />}
+                Custom {selectedOption === 4 && <CheckIcon />}
               </div>
               <div className="flex justify-between w-full gap-2">
                 <input

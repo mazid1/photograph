@@ -1,6 +1,8 @@
 import { Photo } from "@/models/Photo";
 import React from "react";
 import PhotoDownloader from "./PhotoDownloader";
+import { toggleLike } from "@/actions/toggleLike";
+import LikeButton from "./LikeButton";
 
 type PhotoDetailProps = {
   photo: Photo;
@@ -12,7 +14,8 @@ function PhotoDetail({ photo }: PhotoDetailProps) {
   return (
     <div className="max-w-5xl min-w-64">
       <h3 className="font-bold text-lg mb-2">{photo.alt}</h3>
-      <div className="flex flex-col mb-2">
+      <div className="flex flex-row mb-2 gap-2 justify-center">
+        <LikeButton onClick={(e) => toggleLike(photo)}>Like</LikeButton>
         <PhotoDownloader photo={photo} />
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -38,8 +38,14 @@ export default async function register(
   }
 
   const passwordHash = await hash(password, 10);
-  const newUser = { name, email, password: passwordHash };
-  await userStore.setJSON(email, { ...newUser, id: email });
+  const newUser: User = {
+    id: email,
+    name,
+    email,
+    password: passwordHash,
+    liked: {},
+  };
+  await userStore.setJSON(email, newUser);
 
   return { success: true, data: { ...newUser, password: undefined } };
 }

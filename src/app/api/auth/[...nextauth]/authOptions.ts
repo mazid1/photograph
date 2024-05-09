@@ -43,7 +43,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Wrong credentials. Try again.");
         }
 
-        return { ...user, id: user.id!, password: undefined };
+        return { ...user, password: undefined };
       },
     }),
   ],
