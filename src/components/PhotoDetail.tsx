@@ -15,7 +15,7 @@ function PhotoDetail({ photo }: PhotoDetailProps) {
     <div className="max-w-5xl min-w-64">
       <h3 className="font-bold text-lg mb-2">{photo.alt}</h3>
       <div className="flex flex-row mb-2 gap-2 justify-center">
-        <LikeButton onClick={(e) => toggleLike(photo)}>Like</LikeButton>
+        <LikeButton photo={photo} />
         <PhotoDownloader photo={photo} />
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}
