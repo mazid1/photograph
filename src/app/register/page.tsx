@@ -24,7 +24,7 @@ function RegisterPage() {
 
   if (success) {
     ref.current?.reset();
-    router.push("/login");
+    return router.push("/login");
   }
 
   return (

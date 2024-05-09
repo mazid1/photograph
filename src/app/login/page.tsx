@@ -15,7 +15,7 @@ function LoginPage() {
     e.preventDefault();
     const response = await signIn("credentials", { ...data, redirect: false });
     if (response && !response.error) {
-      router.push("/");
+      return router.push("/");
     } else {
       setError(String(response?.error));
     }

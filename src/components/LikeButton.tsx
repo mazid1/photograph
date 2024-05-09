@@ -22,7 +22,7 @@ function LikeButton({ photo, className, ...rest }: LikeButtonProps) {
 
   const handleClick = async () => {
     if (!session) {
-      router.push("/login");
+      return router.push("/login");
     }
     await toggleLike(photo);
     toggle(photo);
