@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/nav/Navbar";
 import NextAuthProvider from "@/context/NextAuthProvider";
+import { LikeStoreProvider } from "@/store/likeStoreProvider";
 
 export const metadata: Metadata = {
   title: { default: "Photograph", template: "%s | Photograph" },
@@ -19,8 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <NextAuthProvider>
-          <Navbar />
-          <main className="max-w-6xl mx-auto">{children}</main>
+          <LikeStoreProvider>
+            <Navbar />
+            <main className="max-w-6xl mx-auto">{children}</main>
+          </LikeStoreProvider>
         </NextAuthProvider>
       </body>
     </html>

@@ -1,5 +1,4 @@
-import { signOut } from "next-auth/react";
-import React from "react";
+import LogoutButton from "./LogoutButton";
 
 type UserMenuProps = {
   name: string;
@@ -36,7 +35,7 @@ function UserMenu(props: UserMenuProps) {
         </li>
         <div className="divider my-1" />
         <li>
-          <button onClick={() => signOut()}>Logout</button>
+          <LogoutButton />
         </li>
       </ul>
     </div>

@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import PhotoContainer from "./PhotoContainer";
 import { ModalContextProvider } from "@/context/ModalContext";
+import { useLikeStore } from "@/store/likeStoreProvider";
+import { getLikedPhotos } from "@/actions/getLikedPhotos";
 
 type GalleryProps = {
   initialPage: PageResponse | undefined;
@@ -16,6 +18,7 @@ function Gallery({ initialPage }: GalleryProps) {
   );
   const [isLoading, setIsLoading] = useState(false);
   const { ref, inView } = useInView();
+  const { liked, setLiked } = useLikeStore((state) => state);
 
   const loadMore = async (url: string | URL) => {
     setIsLoading(true);
@@ -34,6 +37,14 @@ function Gallery({ initialPage }: GalleryProps) {
     });
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    getLikedPhotos().then((response) => {
+      if (response.success) {
+        setLiked(response.data!);
+      }
+    });
+  }, [setLiked]);
 
   useEffect(() => {
     if (inView && photoPage?.next_page) {
