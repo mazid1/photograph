@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PhotoSchema } from "./Photo";
 
 export const LoginSchema = z.object({
   email: z.string(),
@@ -19,9 +20,10 @@ export type LoginDto = z.infer<typeof LoginSchema>;
 export type RegisterDto = z.infer<typeof RegisterSchema>;
 
 export const UserSchema = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   name: z.string(),
   email: z.string(),
   password: z.string().optional(),
+  liked: z.record(z.string(), PhotoSchema),
 });
 export type User = z.infer<typeof UserSchema>;

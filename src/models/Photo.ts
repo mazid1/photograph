@@ -4,7 +4,6 @@ export const PhotoSchema = z.object({
   id: z.number(),
   width: z.number(),
   height: z.number(),
-  url: z.string(),
   src: z.object({
     original: z.string(),
   }),
