@@ -65,9 +65,11 @@ function Gallery({ initialPage }: GalleryProps) {
             <PhotoContainer key={photo.id} photo={photo} />
           ))}
         </div>
-        <div ref={ref} className="w-full text-center mb-3">
-          Loading...
-        </div>
+        {photoPage?.next_page && (
+          <div ref={ref} className="w-full text-center mb-3">
+            Loading...
+          </div>
+        )}
       </ModalContextProvider>
     </section>
   );
