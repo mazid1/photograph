@@ -10,9 +10,11 @@ type FetchPhotosParams = {
 export const fetchPhotos = async ({ query, url }: FetchPhotosParams) => {
   if (!url) {
     if (query) {
-      url = new URL(`https://api.pexels.com/v1/search?query=${query}`);
+      url = new URL(
+        `https://api.pexels.com/v1/search?per_page=40&query=${query}`
+      );
     } else {
-      url = new URL(`https://api.pexels.com/v1/curated`);
+      url = new URL(`https://api.pexels.com/v1/curated?per_page=40`);
     }
   }
 
