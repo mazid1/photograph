@@ -6,19 +6,19 @@ import { useInView } from "react-intersection-observer";
 import PhotoCard from "./photo-card/PhotoCard";
 import { ModalContextProvider } from "@/context/ModalContext";
 import { useLikeStore } from "@/store/likeStoreProvider";
-import { getLikedPhotos } from "@/actions/getLikedPhotos";
 
 type GalleryProps = {
   initialPage: PageResponse | undefined;
+  likedOnly?: boolean;
 };
 
-function Gallery({ initialPage }: GalleryProps) {
+function Gallery({ initialPage, likedOnly }: GalleryProps) {
   const [photoPage, setPhotoPage] = useState<PageResponse | undefined>(
     initialPage
   );
   const [isLoading, setIsLoading] = useState(false);
   const { ref, inView } = useInView();
-  const { liked, setLiked } = useLikeStore((state) => state);
+  const liked = useLikeStore((state) => state.liked);
 
   const loadMore = async (url: string | URL) => {
     setIsLoading(true);
@@ -39,14 +39,6 @@ function Gallery({ initialPage }: GalleryProps) {
   };
 
   useEffect(() => {
-    getLikedPhotos().then((response) => {
-      if (response.success) {
-        setLiked(response.data!);
-      }
-    });
-  }, [setLiked]);
-
-  useEffect(() => {
     if (inView && photoPage?.next_page) {
       loadMore(photoPage.next_page);
     }
@@ -61,9 +53,13 @@ function Gallery({ initialPage }: GalleryProps) {
     <section>
       <ModalContextProvider>
         <div className="px-2 my-2 grid grid-cols-gallery auto-rows-[10px] gap-x-3 place-content-center place-items-center">
-          {photoPage?.photos.map((photo) => (
-            <PhotoCard key={photo.id} photo={photo} />
-          ))}
+          {likedOnly
+            ? Object.values(liked).map((photo) => (
+                <PhotoCard key={photo.id} photo={photo} />
+              ))
+            : photoPage?.photos.map((photo) => (
+                <PhotoCard key={photo.id} photo={photo} />
+              ))}
         </div>
         {photoPage?.next_page && (
           <div ref={ref} className="w-full text-center mb-3">

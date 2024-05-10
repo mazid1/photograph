@@ -23,7 +23,7 @@ async function LikedPage() {
     total_results: photos.length,
   };
 
-  return <Gallery initialPage={pageResponse} />;
+  return <Gallery initialPage={pageResponse} likedOnly />;
 }
 
 export default LikedPage;
