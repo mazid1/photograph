@@ -1,7 +1,7 @@
 "use client";
 import { Photo } from "@/models/Photo";
 import React, { useReducer, useState } from "react";
-import CheckIcon from "./icons/CheckIcon";
+import CheckIcon from "../icons/CheckIcon";
 import { downloadImage } from "@/lib/downloadImage";
 
 type PhotoDownloaderProps = {

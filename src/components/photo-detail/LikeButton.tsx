@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import HeartIcon from "./icons/HeartIcon";
+import HeartIcon from "../icons/HeartIcon";
 import { cn } from "@/lib/utils";
 import { Photo } from "@/models/Photo";
 import { useLikeStore } from "@/store/likeStoreProvider";

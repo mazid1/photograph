@@ -3,7 +3,7 @@ import { fetchPhotos } from "@/actions/fetchPhotos";
 import { PageResponse } from "@/models/Photo";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import PhotoContainer from "./PhotoContainer";
+import PhotoCard from "./photo-card/PhotoCard";
 import { ModalContextProvider } from "@/context/ModalContext";
 import { useLikeStore } from "@/store/likeStoreProvider";
 import { getLikedPhotos } from "@/actions/getLikedPhotos";
@@ -60,9 +60,9 @@ function Gallery({ initialPage }: GalleryProps) {
   return (
     <section>
       <ModalContextProvider>
-        <div className="px-2 my-1 grid grid-cols-gallery auto-rows-[10px] gap-x-3 place-content-center place-items-center">
+        <div className="px-2 my-2 grid grid-cols-gallery auto-rows-[10px] gap-x-3 place-content-center place-items-center">
           {photoPage?.photos.map((photo) => (
-            <PhotoContainer key={photo.id} photo={photo} />
+            <PhotoCard key={photo.id} photo={photo} />
           ))}
         </div>
         {photoPage?.next_page && (
