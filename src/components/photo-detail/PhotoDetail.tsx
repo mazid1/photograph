@@ -1,7 +1,6 @@
 import { Photo } from "@/models/Photo";
 import React from "react";
 import PhotoDownloader from "./PhotoDownloader";
-import { toggleLike } from "@/actions/toggleLike";
 import LikeButton from "./LikeButton";
 
 type PhotoDetailProps = {
