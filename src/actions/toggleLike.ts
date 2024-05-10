@@ -1,7 +1,7 @@
 "use server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { Photo } from "@/models/Photo";
-import { User } from "@/models/User";
+import { User, UserMetadata } from "@/models/User";
 import { getStore } from "@netlify/blobs";
 import { getServerSession } from "next-auth";
 
@@ -14,9 +14,11 @@ export async function toggleLike(photo: Photo) {
   const currentUser = session.user as User;
 
   const userStore = getStore("user");
-  const userInDB: User = await userStore.get(currentUser.email, {
+  const userWithMetadata = await userStore.getWithMetadata(currentUser.email, {
     type: "json",
   });
+  const userInDB = userWithMetadata?.data as User;
+  const userMetadata = userWithMetadata?.metadata as UserMetadata;
 
   let isAdded = false;
 
@@ -27,7 +29,9 @@ export async function toggleLike(photo: Photo) {
     userInDB.liked[photo.id] = photo;
     isAdded = true;
   }
-  await userStore.setJSON(currentUser.email, userInDB);
+  await userStore.setJSON(currentUser.email, userInDB, {
+    metadata: userMetadata,
+  });
 
   return {
     success: true,

@@ -9,7 +9,7 @@ import { useRef } from "react";
 import { useFormState } from "react-dom";
 import SubmitButton from "./SubmitButton";
 
-const initialState: ResponseType<User> = {
+const initialState: ResponseType<User, never> = {
   success: false,
   data: undefined,
   error: undefined,

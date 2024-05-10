@@ -1,13 +1,13 @@
 "use server";
 import { ErrorType, ResponseType } from "@/models/ResponseType";
-import { RegisterDto, RegisterSchema, User } from "@/models/User";
+import { RegisterDto, RegisterSchema, User, UserMetadata } from "@/models/User";
 import { hash } from "bcrypt";
 import { getStore } from "@netlify/blobs";
 
 export default async function register(
-  prevState: ResponseType<User>,
+  prevState: ResponseType<User, never>,
   formData: FormData
-): Promise<ResponseType<User>> {
+): Promise<ResponseType<User, never>> {
   const registerDto: RegisterDto = {
     name: formData.get("name") as string,
     email: formData.get("email") as string,
@@ -45,7 +45,14 @@ export default async function register(
     password: passwordHash,
     liked: {},
   };
-  await userStore.setJSON(email, newUser);
+  const userMetadata: UserMetadata = {
+    createdAt: new Date().toISOString(),
+    passwordUpdatedAt: new Date().toISOString(),
+  };
+  await userStore.setJSON(email, newUser, { metadata: userMetadata });
 
-  return { success: true, data: { ...newUser, password: undefined } };
+  return {
+    success: true,
+    data: { ...newUser, password: undefined },
+  };
 }

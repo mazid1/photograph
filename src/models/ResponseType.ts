@@ -11,9 +11,10 @@ export enum ErrorType {
   FORM_ERROR = "FORM_ERROR",
 }
 
-export type ResponseType<T> = {
+export type ResponseType<T, U> = {
   success: boolean;
   data?: T;
+  metadata?: U;
   error?: typeToFlattenedError<T>["fieldErrors"]; // For form errors
   errorType?: ErrorType;
   message?: string; // For toast message
