@@ -27,3 +27,9 @@ export const UserSchema = z.object({
   liked: z.record(z.string(), PhotoSchema),
 });
 export type User = z.infer<typeof UserSchema>;
+
+export const UserMetadataSchema = z.object({
+  createdAt: z.string().datetime(),
+  passwordUpdatedAt: z.string().datetime(),
+});
+export type UserMetadata = z.infer<typeof UserMetadataSchema>;

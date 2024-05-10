@@ -5,7 +5,9 @@ import { User } from "@/models/User";
 import { getStore } from "@netlify/blobs";
 import { getServerSession } from "next-auth";
 
-export async function getLikedPhotos(): Promise<ResponseType<User["liked"]>> {
+export async function getLikedPhotos(): Promise<
+  ResponseType<User["liked"], never>
+> {
   const session = await getServerSession(authOptions);
   if (!session) {
     return {
