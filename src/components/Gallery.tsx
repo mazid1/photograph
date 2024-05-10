@@ -45,8 +45,20 @@ function Gallery({ initialPage, likedOnly }: GalleryProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
+  if (likedOnly && !Object.keys(liked).length) {
+    return (
+      <section className="text-center">
+        <p className="mx-auto mt-40">No liked photos found</p>
+      </section>
+    );
+  }
+
   if (!photoPage && !isLoading) {
-    return <section className="px-2 my-3">No photos found</section>;
+    return (
+      <section className="text-center">
+        <p className="mx-auto mt-40">No photos found</p>
+      </section>
+    );
   }
 
   return (
