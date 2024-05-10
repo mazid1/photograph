@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useFormState } from "react-dom";
 import SubmitButton from "./SubmitButton";
+import { useSession } from "next-auth/react";
 
 const initialState: ResponseType<User, never> = {
   success: false,
@@ -19,8 +20,13 @@ const initialState: ResponseType<User, never> = {
 
 function RegisterPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const ref = useRef<HTMLFormElement>(null);
   const [{ success, error }, formAction] = useFormState(register, initialState);
+
+  if (session?.user) {
+    return router.push("/");
+  }
 
   if (success) {
     ref.current?.reset();
