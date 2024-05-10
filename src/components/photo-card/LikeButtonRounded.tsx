@@ -35,7 +35,7 @@ function LikeButtonRounded({
 
   return (
     <button
-      className={cn("btn btn-circle btn-ghost", className)}
+      className={cn("btn btn-circle btn-outline", className)}
       {...rest}
       onClick={handleClick}
     >
