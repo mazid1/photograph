@@ -4,7 +4,6 @@ import { PageResponse } from "@/models/Photo";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import PhotoCard from "./photo-card/PhotoCard";
-import { ModalContextProvider } from "@/context/ModalContext";
 import { useLikeStore } from "@/store/likeStoreProvider";
 
 type GalleryProps = {
@@ -63,22 +62,20 @@ function Gallery({ initialPage, likedOnly }: GalleryProps) {
 
   return (
     <section>
-      <ModalContextProvider>
-        <div className="px-2 my-2 grid grid-cols-gallery auto-rows-[10px] gap-x-3 place-content-center place-items-center">
-          {likedOnly
-            ? Object.values(liked).map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} />
-              ))
-            : photoPage?.photos.map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} />
-              ))}
+      <div className="px-2 my-2 grid grid-cols-gallery auto-rows-[10px] gap-x-3 place-content-center place-items-center">
+        {likedOnly
+          ? Object.values(liked).map((photo) => (
+              <PhotoCard key={photo.id} photo={photo} />
+            ))
+          : photoPage?.photos.map((photo) => (
+              <PhotoCard key={photo.id} photo={photo} />
+            ))}
+      </div>
+      {photoPage?.next_page && (
+        <div ref={ref} className="w-full text-center mb-3">
+          Loading...
         </div>
-        {photoPage?.next_page && (
-          <div ref={ref} className="w-full text-center mb-3">
-            Loading...
-          </div>
-        )}
-      </ModalContextProvider>
+      )}
     </section>
   );
 }
