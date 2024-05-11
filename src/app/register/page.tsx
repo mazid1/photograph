@@ -3,14 +3,14 @@ import register from "@/actions/register";
 import { isObject } from "@/lib/isObject";
 import { cn } from "@/lib/utils";
 import { ResponseType } from "@/models/ResponseType";
-import { User } from "@/models/User";
+import { RegisterDto, User } from "@/models/User";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useFormState } from "react-dom";
 import { useSession } from "next-auth/react";
 import SubmitButton from "@/components/SubmitButton";
 
-const initialState: ResponseType<User, never> = {
+const initialState: ResponseType<RegisterDto, never> = {
   success: false,
   data: undefined,
   error: undefined,
@@ -102,6 +102,29 @@ function RegisterPage() {
             {isObject(error) && error.password && (
               <div className="label">
                 <span className="label-text-alt">{error.password[0]}</span>
+              </div>
+            )}
+          </div>
+
+          <div className="form-control w-full">
+            <label htmlFor="confirmPassword" className="label">
+              <span className="label-text">Confirm Password</span>
+            </label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              autoComplete="off"
+              required
+              className={cn("input input-bordered w-full", {
+                "input-error": isObject(error) && error.confirmPassword,
+              })}
+            />
+            {isObject(error) && error.confirmPassword && (
+              <div className="label">
+                <span className="label-text-alt">
+                  {error.confirmPassword[0]}
+                </span>
               </div>
             )}
           </div>
