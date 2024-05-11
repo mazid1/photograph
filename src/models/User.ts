@@ -19,10 +19,14 @@ export type RegisterFlattenedErrors = z.inferFlattenedErrors<
 export type LoginDto = z.infer<typeof LoginSchema>;
 export type RegisterDto = z.infer<typeof RegisterSchema>;
 
-export const UserSchema = z.object({
+export const UserProfileSchema = z.object({
   id: z.string(),
   name: z.string(),
   email: z.string(),
+});
+export type UserProfile = z.infer<typeof UserProfileSchema>;
+
+export const UserSchema = UserProfileSchema.extend({
   password: z.string().optional(),
   liked: z.record(z.string(), PhotoSchema),
 });

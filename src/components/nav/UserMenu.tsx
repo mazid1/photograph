@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 
 type UserMenuProps = {
@@ -8,6 +10,10 @@ type UserMenuProps = {
 function UserMenu(props: UserMenuProps) {
   const { name, email } = props;
   const initials = name.split(" ").reduce((s, curr) => s + curr[0], "");
+
+  const closeMenu = (event: MouseEvent<HTMLElement>) => {
+    event.currentTarget?.blur();
+  };
 
   return (
     <div className="dropdown dropdown-end">
@@ -21,17 +27,21 @@ function UserMenu(props: UserMenuProps) {
       </div>
       <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box">
         <li>
-          <div className="flex flex-row gap-2">
+          <Link
+            href={"/profile"}
+            className="flex flex-row gap-2"
+            onClick={closeMenu}
+          >
             <div className="avatar placeholder flex">
               <div className="bg-neutral text-neutral-content rounded-full w-8 h-8">
                 <span>{initials}</span>
               </div>
             </div>
-            <button className="flex flex-col items-start">
+            <div className="flex flex-col items-start">
               <div className="text-md leading-4">{name}</div>
               <div className="text-xs leading-4">{email}</div>
-            </button>
-          </div>
+            </div>
+          </Link>
         </li>
         <div className="divider my-1" />
         <li>
