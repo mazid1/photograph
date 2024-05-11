@@ -37,3 +37,10 @@ export const UserMetadataSchema = z.object({
   passwordUpdatedAt: z.string().datetime(),
 });
 export type UserMetadata = z.infer<typeof UserMetadataSchema>;
+
+export const ChangePasswordSchema = z.object({
+  currentPassword: z.string(),
+  newPassword: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string(),
+});
+export type ChangePasswordDto = z.infer<typeof ChangePasswordSchema>;

@@ -7,8 +7,8 @@ import { User } from "@/models/User";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useFormState } from "react-dom";
-import SubmitButton from "./SubmitButton";
 import { useSession } from "next-auth/react";
+import SubmitButton from "@/components/SubmitButton";
 
 const initialState: ResponseType<User, never> = {
   success: false,
