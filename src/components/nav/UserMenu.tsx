@@ -1,6 +1,7 @@
 import { MouseEvent } from "react";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
+import { getInitials } from "@/lib/getInitials";
 
 type UserMenuProps = {
   name: string;
@@ -9,7 +10,7 @@ type UserMenuProps = {
 
 function UserMenu(props: UserMenuProps) {
   const { name, email } = props;
-  const initials = name.split(" ").reduce((s, curr) => s + curr[0], "");
+  const initials = getInitials(name);
 
   const closeMenu = (event: MouseEvent<HTMLElement>) => {
     event.currentTarget?.blur();

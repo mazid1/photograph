@@ -3,6 +3,7 @@ import { useModal } from "@/context/ModalContext";
 import ChangePasswordForm from "./ChangePasswordForm";
 import { UserMetadata, UserProfile } from "@/models/User";
 import dayjs from "dayjs";
+import { getInitials } from "@/lib/getInitials";
 
 type ProfileCardProps = {
   user: UserProfile;
@@ -23,7 +24,7 @@ function ProfileCard({ user, metadata }: ProfileCardProps) {
         <div className="flex flex-row gap-4">
           <div className="avatar placeholder">
             <div className="bg-neutral text-neutral-content rounded-full w-24">
-              <span className="text-3xl">MI</span>
+              <span className="text-3xl">{getInitials(user.name)}</span>
             </div>
           </div>
 
