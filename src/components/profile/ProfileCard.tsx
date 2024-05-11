@@ -2,6 +2,7 @@
 import { useModal } from "@/context/ModalContext";
 import ChangePasswordForm from "./ChangePasswordForm";
 import { UserMetadata, UserProfile } from "@/models/User";
+import dayjs from "dayjs";
 
 type ProfileCardProps = {
   user: UserProfile;
@@ -36,7 +37,9 @@ function ProfileCard({ user, metadata }: ProfileCardProps) {
           <div className="flex flex-col">
             <h3 className="text-lg font-bold">Password updated at</h3>
             <p className="text-sm">
-              {new Date(metadata?.passwordUpdatedAt!).toLocaleString()}
+              {dayjs(metadata?.passwordUpdatedAt).format(
+                "MMM D, YYYY h:mm:ss A"
+              )}
             </p>
           </div>
           <button
