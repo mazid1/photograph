@@ -2,9 +2,9 @@ import { getStore } from "@netlify/blobs";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const userId = req.nextUrl.searchParams.get("userId");
+  const imageId = req.nextUrl.searchParams.get("imageId");
   try {
-    if (!userId) {
+    if (!imageId) {
       return NextResponse.json({
         message: "User ID is required",
         success: false,
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     }
     const profilePictureStore = getStore("profile-picture");
     const pictureWithMetadata = await profilePictureStore.getWithMetadata(
-      userId,
+      imageId,
       { type: "arrayBuffer" }
     );
 
@@ -27,7 +27,9 @@ export async function GET(req: NextRequest) {
     const fileName = pictureWithMetadata?.metadata.fileName;
 
     return new NextResponse(profilePicture, {
-      headers: { "Content-Disposition": `attachment; filename="${fileName}"` },
+      headers: {
+        "Content-Disposition": `attachment; filename="${fileName}"`,
+      },
       status: 200,
       statusText: "OK",
     });
