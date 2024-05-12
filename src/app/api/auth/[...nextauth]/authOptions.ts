@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
       const encodedToken = jsonwebtoken.sign(
         {
           ...token,
-          exp: Math.floor(Date.now() / 1000) + 60 * 60,
+          exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7,
         },
         secret
       );
