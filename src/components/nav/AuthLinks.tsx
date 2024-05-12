@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import UserMenu from "./UserMenu";
-import { useUserProfile } from "@/store/UserProfileProvider";
+import { useUserProfile } from "@/context/UserProfileProvider";
 
 function AuthLinks() {
   const user = useUserProfile((store) => store.user);

@@ -2,8 +2,8 @@
 import { PropsWithChildren } from "react";
 import { ModalContextProvider } from "./ModalContext";
 import NextAuthProvider from "./NextAuthProvider";
-import { LikeStoreProvider } from "@/store/likeStoreProvider";
-import { UserProfileProvider } from "@/store/UserProfileProvider";
+import { LikeStoreProvider } from "@/context/LikeStoreProvider";
+import { UserProfileProvider } from "@/context/UserProfileProvider";
 
 export function Providers({ children }: PropsWithChildren) {
   return (

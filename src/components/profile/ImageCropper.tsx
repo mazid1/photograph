@@ -1,7 +1,7 @@
 "use client";
 import { updateProfilePicture } from "@/actions/updateProfilePicture";
 import getCroppedImage from "@/lib/getCroppedImage";
-import { useUserProfile } from "@/store/UserProfileProvider";
+import { useUserProfile } from "@/context/UserProfileProvider";
 import { useSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
 import Cropper, { Area } from "react-easy-crop";

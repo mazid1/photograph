@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Search from "./Search";
 import AuthLinks from "./AuthLinks";
-import { useUserProfile } from "@/store/UserProfileProvider";
+import { useUserProfile } from "@/context/UserProfileProvider";
 
 function Navbar() {
   const user = useUserProfile((store) => store.user);

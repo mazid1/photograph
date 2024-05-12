@@ -8,7 +8,10 @@ import React, {
   useState,
 } from "react";
 import { StoreApi, useStore } from "zustand";
-import { UserProfileStore, createUserProfileStore } from "./userProfileStore";
+import {
+  UserProfileStore,
+  createUserProfileStore,
+} from "./store/userProfileStore";
 import { useSession } from "next-auth/react";
 
 // Create a context for the user profile

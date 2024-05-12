@@ -2,7 +2,7 @@
 import React, { MouseEvent } from "react";
 import HeartIcon from "../icons/HeartIcon";
 import { Photo } from "@/models/Photo";
-import { useLikeStore } from "@/store/likeStoreProvider";
+import { useLikeStore } from "@/context/LikeStoreProvider";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toggleLike } from "@/actions/toggleLike";
