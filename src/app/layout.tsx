@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Curated photography from around the world.",
 };
 
-export const revalidate = 60 * 60; // 1 hour
+export const revalidate = 60 * 60 * 24; // 1 day
 
 export default function RootLayout({
   children,
