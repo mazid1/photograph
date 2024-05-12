@@ -9,6 +9,7 @@ import { getStore } from "@netlify/blobs";
 export type SessionUser = {
   email: string;
   name: string;
+  image?: string;
 };
 
 export const authOptions: NextAuthOptions = {
