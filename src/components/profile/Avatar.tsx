@@ -13,7 +13,7 @@ type AvatarProps = {
 
 export function Avatar({ user }: AvatarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { showModal, setModalContent } = useModal();
+  const { showModal, setModalContent, closeModal } = useModal();
 
   const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -23,7 +23,9 @@ export function Avatar({ user }: AvatarProps) {
       if (!file || !file.type.match(/image.*/)) {
         throw new Error("Upload invalid");
       }
-      setModalContent(<ImageCropper file={file} />);
+      setModalContent(
+        <ImageCropper file={file} onUploadCompleted={closeModal} />
+      );
       showModal();
     }
 

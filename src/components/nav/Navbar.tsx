@@ -1,11 +1,11 @@
 "use client";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Search from "./Search";
 import AuthLinks from "./AuthLinks";
+import { useUserProfile } from "@/store/UserProfileProvider";
 
 function Navbar() {
-  const { data: session } = useSession();
+  const user = useUserProfile((store) => store.user);
 
   return (
     <header className="sticky top-0 z-10 bg-base-300">
@@ -14,7 +14,7 @@ function Navbar() {
           <Link href={"/"} className="btn btn-ghost text-2xl">
             Photograph
           </Link>
-          {session?.user && (
+          {user && (
             <Link href={"/liked"} className="link link-hover">
               Liked
             </Link>

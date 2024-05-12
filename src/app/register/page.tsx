@@ -3,7 +3,7 @@ import register from "@/actions/register";
 import { isObject } from "@/lib/isObject";
 import { cn } from "@/lib/utils";
 import { ResponseType } from "@/models/ResponseType";
-import { RegisterDto, User } from "@/models/User";
+import { RegisterDto } from "@/models/User";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useFormState } from "react-dom";

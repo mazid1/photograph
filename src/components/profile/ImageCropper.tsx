@@ -1,19 +1,26 @@
 "use client";
 import { updateProfilePicture } from "@/actions/updateProfilePicture";
 import getCroppedImage from "@/lib/getCroppedImage";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useUserProfile } from "@/store/UserProfileProvider";
+import { useSession } from "next-auth/react";
+import { useEffect, useMemo, useState } from "react";
 import Cropper, { Area } from "react-easy-crop";
 
 type ImageCropperProps = {
   file: File;
+  onUploadCompleted: () => void;
 };
 
-export function ImageCropper({ file }: ImageCropperProps) {
+export function ImageCropper({ file, onUploadCompleted }: ImageCropperProps) {
   const [imageSource, setImageSource] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
   const [isUploading, setIsUploading] = useState(false);
+  const { update, data: session } = useSession();
+  const setUserProfileImage = useUserProfile(
+    (store) => store.setUserProfileImage
+  );
 
   useEffect(() => {
     const src = URL.createObjectURL(file);
@@ -58,10 +65,18 @@ export function ImageCropper({ file }: ImageCropperProps) {
       if (!response.success) {
         throw new Error(response.message);
       }
-      console.log("Upload successful", response.data);
+      setUserProfileImage(response.data?.url!);
+      await update({
+        ...session,
+        user: {
+          ...session?.user,
+          image: response.data?.url!,
+        },
+      });
+      setIsUploading(false);
+      onUploadCompleted();
     } catch (error) {
       console.error("Upload failed", error);
-    } finally {
       setIsUploading(false);
     }
   };
@@ -102,7 +117,12 @@ export function ImageCropper({ file }: ImageCropperProps) {
           className="range"
           onChange={handleZoomChange}
         />
-        <button onClick={handleUpload} className="btn btn-sm btn-primary">
+        <button
+          onClick={handleUpload}
+          disabled={isUploading}
+          className="btn btn-sm btn-primary"
+        >
+          {isUploading && <span className="loading loading-spinner"></span>}
           Upload
         </button>
       </div>

@@ -1,18 +1,18 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import UserMenu from "./UserMenu";
+import { useUserProfile } from "@/store/UserProfileProvider";
 
 function AuthLinks() {
-  const { data: session } = useSession();
+  const user = useUserProfile((store) => store.user);
 
-  if (session?.user) {
+  if (user) {
     return (
       <UserMenu
-        name={session.user.name!}
-        email={session.user.email!}
-        image={session.user.image || undefined}
+        name={user.name!}
+        email={user.email!}
+        image={user.image || undefined}
       />
     );
   }

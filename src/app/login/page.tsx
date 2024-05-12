@@ -19,7 +19,7 @@ function LoginPage() {
   const loginUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await signIn("credentials", { ...data, redirect: false });
-    if (response && !response.error) {
+    if (response && response.ok) {
       return router.push("/");
     } else {
       setError(String(response?.error));

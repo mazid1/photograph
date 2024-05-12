@@ -4,6 +4,7 @@ import { ErrorType } from "@/models/ResponseType";
 import { User } from "@/models/User";
 import { getStore } from "@netlify/blobs";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 type UpdateProfilePictureProps = {
   formData: FormData;
@@ -26,18 +27,31 @@ export async function updateProfilePicture({
   }
 
   const file = formData.get("image") as File;
-  console.log("File", file);
   const arrayBuffer = await file.arrayBuffer();
 
   const currentUser = session.user as User;
   const profilePictureStore = getStore("profile-picture");
-  await profilePictureStore.set(currentUser.id, arrayBuffer, {
+
+  // delete current profile picture
+  if (currentUser.image) {
+    await profilePictureStore.delete(currentUser.image.split("=")[1]);
+  }
+
+  // generate random id for new profile picture
+  const randomId =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+
+  // save new profile picture
+  await profilePictureStore.set(randomId, arrayBuffer, {
     metadata: { fileName, type },
   });
 
-  const imageUrl = `/api/profile-picture?userId=${currentUser.id}`;
+  const imageUrl = `/api/profile-picture?imageId=${randomId}`;
 
   const userStore = getStore("user");
+
+  // update user with new profile picture
   const userWithMetadata = await userStore.getWithMetadata(currentUser.id, {
     type: "json",
   });
@@ -50,6 +64,8 @@ export async function updateProfilePicture({
     },
     { metadata: { ...userWithMetadata?.metadata } }
   );
+
+  revalidatePath("/", "layout");
 
   return {
     success: true,
