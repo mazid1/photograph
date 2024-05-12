@@ -1,6 +1,6 @@
 "use client";
-import { useUserProfile } from "@/store/UserProfileProvider";
-import { useLikeStore } from "@/store/likeStoreProvider";
+import { useUserProfile } from "@/context/UserProfileProvider";
+import { useLikeStore } from "@/context/LikeStoreProvider";
 import { signOut } from "next-auth/react";
 
 function LogoutButton() {

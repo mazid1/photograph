@@ -4,7 +4,7 @@ import { PageResponse } from "@/models/Photo";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import PhotoCard from "./photo-card/PhotoCard";
-import { useLikeStore } from "@/store/likeStoreProvider";
+import { useLikeStore } from "@/context/LikeStoreProvider";
 
 type GalleryProps = {
   initialPage: PageResponse | undefined;

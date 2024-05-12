@@ -7,7 +7,7 @@ import {
   useEffect,
 } from "react";
 import { type StoreApi, useStore } from "zustand";
-import { LikeStore, createLikeStore } from "./likeStore";
+import { LikeStore, createLikeStore } from "./store/likeStore";
 import { getLikedPhotos } from "@/actions/getLikedPhotos";
 import { useSession } from "next-auth/react";
 

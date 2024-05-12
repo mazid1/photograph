@@ -3,7 +3,7 @@ import React from "react";
 import HeartIcon from "../icons/HeartIcon";
 import { cn } from "@/lib/utils";
 import { Photo } from "@/models/Photo";
-import { useLikeStore } from "@/store/likeStoreProvider";
+import { useLikeStore } from "@/context/LikeStoreProvider";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toggleLike } from "@/actions/toggleLike";
