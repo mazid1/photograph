@@ -19,7 +19,7 @@ function ProfileCard({ user, metadata }: ProfileCardProps) {
   };
 
   return (
-    <div className="card w-full md:w-2/3 bg-base-100 shadow-xl mx-auto">
+    <div className="card w-full md:w-2/3 bg-base-100 shadow-xl mx-auto border dark:border-neutral">
       <div className="card-body gap-4">
         <div className="flex flex-row gap-4">
           <Avatar user={user} />

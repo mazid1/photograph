@@ -65,7 +65,7 @@ export async function updateProfilePicture({
     { metadata: { ...userWithMetadata?.metadata } }
   );
 
-  revalidatePath("/profile", "page");
+  revalidatePath("/", "layout");
 
   return {
     success: true,
