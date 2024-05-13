@@ -30,7 +30,7 @@ pnpm install
 pnpm add netlify-cli -g
 ```
 
-● Follow the step by step guide from the [official documentation](https://docs.netlify.com/cli/get-started/).
+● Follow the step by step guide from the [netlify documentation](https://docs.netlify.com/cli/get-started/).
 
 ● Once you are done with that, you should be able to run the project locally by this command.
 
