@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Photograph
+
+---
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ca78c2f8-af5d-4341-94a7-bc0b49d0b270/deploy-status)](https://app.netlify.com/sites/photograph-mzd/deploys)
+
+This is a dynamic image gallery using [Pexels API]() and [Next.js](https://nextjs.org/). This project is bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It uses [Netlify Blobs](https://docs.netlify.com/blobs/overview/) for data storage and [Netlify Image CDN](https://docs.netlify.com/image-cdn/overview/) for serving optimized images.
+
+Landing page fetches a list of curated images from Pexels API. User can click on the image to view in detailed mode. User can also use the search functionality to find images of any topic. Moreover, authenticated users are allowed to like any image and create his/her own collection of liked images. From the user profile page, user can upload profile picture and change password.
+
+## Demo
+
+Live project link: [https://photograph-mzd.netlify.app](https://photograph-mzd.netlify.app)
+
+![Project screenshot](docs/image.png)
 
 ## Getting Started
 
-First, run the development server:
+● Install the necessary dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+● Rename the `.env.example` file to `.env` and add your `PEXELS_API_KEY` obtained from [https://www.pexels.com/api](https://www.pexels.com/api/).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+● Install [Netlify CLI](https://www.netlify.com/platform/core/cli) globally.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+pnpm add netlify-cli -g
+```
 
-## Learn More
+● Follow the step by step guide from the [official documentation](https://docs.netlify.com/cli/get-started/).
 
-To learn more about Next.js, take a look at the following resources:
+● Once you are done with that, you should be able to run the project locally by this command.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+netlify dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+● Open [http://localhost:8888](http://localhost:8888) with your browser to see the result.
