@@ -1,7 +1,5 @@
 # Photograph
 
----
-
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ca78c2f8-af5d-4341-94a7-bc0b49d0b270/deploy-status)](https://app.netlify.com/sites/photograph-mzd/deploys)
 
 This is a dynamic image gallery using [Pexels API]() and [Next.js](https://nextjs.org/). This project is bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It uses [Netlify Blobs](https://docs.netlify.com/blobs/overview/) for data storage and [Netlify Image CDN](https://docs.netlify.com/image-cdn/overview/) for serving optimized images.
