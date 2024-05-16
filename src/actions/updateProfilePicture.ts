@@ -5,6 +5,7 @@ import { User } from "@/models/User";
 import { getStore } from "@netlify/blobs";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { StoreType } from "./type";
 
 type UpdateProfilePictureProps = {
   formData: FormData;
@@ -30,7 +31,7 @@ export async function updateProfilePicture({
   const arrayBuffer = await file.arrayBuffer();
 
   const currentUser = session.user as User;
-  const profilePictureStore = getStore("profile-picture");
+  const profilePictureStore = getStore(StoreType.PROFILE_PICTURE);
 
   // delete current profile picture
   if (currentUser.image) {
@@ -49,7 +50,7 @@ export async function updateProfilePicture({
 
   const imageUrl = `/api/profile-picture?imageId=${randomId}`;
 
-  const userStore = getStore("user");
+  const userStore = getStore(StoreType.USER);
 
   // update user with new profile picture
   const userWithMetadata = await userStore.getWithMetadata(currentUser.id, {

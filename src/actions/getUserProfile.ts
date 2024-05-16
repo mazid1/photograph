@@ -9,6 +9,7 @@ import {
 } from "@/models/User";
 import { getStore } from "@netlify/blobs";
 import { getServerSession } from "next-auth";
+import { StoreType } from "./type";
 
 export default async function getUserProfile(): Promise<
   ResponseType<UserProfile, UserMetadata>
@@ -24,7 +25,7 @@ export default async function getUserProfile(): Promise<
 
   const currentUser = session.user as User;
 
-  const userStore = getStore("user");
+  const userStore = getStore(StoreType.USER);
   const userWithMetadata = (await userStore.getWithMetadata(currentUser.email, {
     type: "json",
   })) as { data: User; metadata: UserMetadata };

@@ -4,6 +4,7 @@ import { Photo } from "@/models/Photo";
 import { User, UserMetadata } from "@/models/User";
 import { getStore } from "@netlify/blobs";
 import { getServerSession } from "next-auth";
+import { StoreType } from "./type";
 
 export async function toggleLike(photo: Photo) {
   const session = await getServerSession(authOptions);
@@ -13,7 +14,7 @@ export async function toggleLike(photo: Photo) {
 
   const currentUser = session.user as User;
 
-  const userStore = getStore("user");
+  const userStore = getStore(StoreType.USER);
   const userWithMetadata = await userStore.getWithMetadata(currentUser.email, {
     type: "json",
   });

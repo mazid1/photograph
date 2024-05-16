@@ -4,6 +4,7 @@ import { ErrorType, ResponseType } from "@/models/ResponseType";
 import { User } from "@/models/User";
 import { getStore } from "@netlify/blobs";
 import { getServerSession } from "next-auth";
+import { StoreType } from "./type";
 
 export async function getLikedPhotos(): Promise<
   ResponseType<User["liked"], never>
@@ -19,7 +20,7 @@ export async function getLikedPhotos(): Promise<
 
   const currentUser = session.user as User;
 
-  const userStore = getStore("user");
+  const userStore = getStore(StoreType.USER);
   const userInDB: User = await userStore.get(currentUser.email, {
     type: "json",
   });

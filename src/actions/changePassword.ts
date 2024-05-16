@@ -11,6 +11,7 @@ import { getStore } from "@netlify/blobs";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { revalidatePath } from "next/cache";
+import { StoreType } from "./type";
 
 export default async function changePassword(
   prevState: ResponseType<ChangePasswordDto, UserMetadata>,
@@ -53,7 +54,7 @@ export default async function changePassword(
     };
   }
 
-  const userStore = getStore("user");
+  const userStore = getStore(StoreType.USER);
   const userWithMetadata = await userStore.getWithMetadata(currentUser.email, {
     type: "json",
   });

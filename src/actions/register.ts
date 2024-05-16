@@ -3,6 +3,7 @@ import { ErrorType, ResponseType } from "@/models/ResponseType";
 import { RegisterDto, RegisterSchema, User, UserMetadata } from "@/models/User";
 import { hash } from "bcrypt";
 import { getStore } from "@netlify/blobs";
+import { StoreType } from "./type";
 
 export default async function register(
   prevState: ResponseType<RegisterDto, never>,
@@ -35,7 +36,7 @@ export default async function register(
     };
   }
 
-  const userStore = getStore("user");
+  const userStore = getStore(StoreType.USER);
   const userInDB = await userStore.get(email, { type: "json" });
 
   if (userInDB) {
