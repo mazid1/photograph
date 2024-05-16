@@ -7,6 +7,7 @@ import { useLikeStore } from "@/context/LikeStoreProvider";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toggleLike } from "@/actions/toggleLike";
+import { useModal } from "@/context/ModalContext";
 
 type LikeButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -19,9 +20,11 @@ function LikeButton({ photo, className, ...rest }: LikeButtonProps) {
   const { liked, toggle } = useLikeStore((state) => state);
   const { data: session } = useSession();
   const router = useRouter();
+  const { closeModal } = useModal();
 
   const handleClick = async () => {
     if (!session) {
+      closeModal();
       return router.push("/login");
     }
     await toggleLike(photo);
