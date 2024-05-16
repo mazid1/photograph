@@ -10,7 +10,7 @@ type PhotoDownloaderProps = {
 };
 
 function PhotoDownloader({ photo }: PhotoDownloaderProps) {
-  const src = `/.netlify/images?url=${photo.src.original}&fit=cover&position=center`;
+  const src = `/.netlify/images?url=${photo.src.original}&fit=cover&position=center&q=100`;
 
   const { width: originalWidth, height: originalHeight } = photo;
 
