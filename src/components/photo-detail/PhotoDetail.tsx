@@ -1,7 +1,9 @@
+"use client";
 import { Photo } from "@/models/Photo";
-import React from "react";
+import React, { useState } from "react";
 import PhotoDownloader from "./PhotoDownloader";
 import LikeButton from "./LikeButton";
+import { cn } from "@/lib/utils";
 
 type PhotoDetailProps = {
   photo: Photo;
@@ -9,17 +11,34 @@ type PhotoDetailProps = {
 
 function PhotoDetail({ photo }: PhotoDetailProps) {
   const src = `/.netlify/images?url=${photo.src.original}&fit=cover&position=center`;
+  const [isFit, setIsFit] = useState(false);
 
   return (
     <div className="max-w-4xl flex flex-col">
       <div className="flex flex-col items-center">
         <h3 className="font-bold text-lg mb-2">{photo.alt}</h3>
-        <div className="flex flex-row flex-wrap mb-2 gap-2">
+        <div className="flex flex-row flex-wrap items-center mb-2 gap-2">
           <LikeButton photo={photo} />
           <PhotoDownloader photo={photo} />
+          <div className="form-control">
+            <label className="cursor-pointer label gap-1">
+              <span className="label-text">Fit</span>
+              <input
+                type="checkbox"
+                className="toggle toggle-primary"
+                checked={isFit}
+                onChange={(e) => setIsFit(e.currentTarget.checked)}
+              />
+            </label>
+          </div>
         </div>
       </div>
-      <div className="overflow-auto max-h-full">
+      <div
+        className={cn("overflow-auto max-h-full", {
+          flex: isFit,
+          "justify-center": isFit,
+        })}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
@@ -28,7 +47,11 @@ function PhotoDetail({ photo }: PhotoDetailProps) {
           alt={photo.alt}
           width={photo.width}
           height={photo.height}
-          className="object-cover object-center rounded"
+          className={cn("object-cover object-center rounded", {
+            "object-contain": isFit,
+            "max-h-full": isFit,
+            "w-auto": isFit,
+          })}
           style={{ backgroundColor: photo.avg_color }}
         />
       </div>
