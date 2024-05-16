@@ -33,7 +33,7 @@ function LikeButton({ photo, className, ...rest }: LikeButtonProps) {
 
   return (
     <button
-      className={cn("btn btn-primary", className)}
+      className={cn("btn btn-sm btn-primary", className)}
       {...rest}
       onClick={handleClick}
     >

@@ -3,6 +3,7 @@ import { Photo } from "@/models/Photo";
 import React, { useReducer, useState } from "react";
 import CheckIcon from "../icons/CheckIcon";
 import { downloadImage } from "@/lib/downloadImage";
+import { DownloadIcon } from "../icons/DownloadIcon";
 
 type PhotoDownloaderProps = {
   photo: Photo;
@@ -93,7 +94,7 @@ function PhotoDownloader({ photo }: PhotoDownloaderProps) {
   return (
     <div className="join">
       <button
-        className="btn btn-primary join-item"
+        className="btn btn-sm btn-primary join-item"
         onClick={handleDownload}
         disabled={downloading}
       >
@@ -101,8 +102,8 @@ function PhotoDownloader({ photo }: PhotoDownloaderProps) {
         Download
       </button>
       <div className="dropdown dropdown-bottom dropdown-end">
-        <button tabIndex={0} className="btn btn-primary join-item">
-          ↓
+        <button tabIndex={0} className="btn btn-sm btn-primary join-item">
+          <DownloadIcon width={18} height={18} />
         </button>
         <ul
           tabIndex={0}
@@ -160,7 +161,7 @@ function PhotoDownloader({ photo }: PhotoDownloaderProps) {
             <button
               onClick={handleDownload}
               disabled={downloading}
-              className="btn btn-primary"
+              className="btn btn-sm btn-primary"
             >
               {downloading && <span className="loading loading-spinner"></span>}
               Download
