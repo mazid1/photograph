@@ -62,7 +62,7 @@ export const ModalContextProvider = ({ children }: PropsWithChildren) => {
     >
       {children}
       <dialog ref={modalRef} className="modal">
-        <div className="modal-box scale-100">
+        <div className="modal-box scale-100 max-w-4xl flex overflow-hidden">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button
