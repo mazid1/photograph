@@ -51,7 +51,7 @@ export function Avatar({ user }: AvatarProps) {
 				{user.image ? (
 					// eslint-disable-next-line @next/next/no-img-element
 					<img
-						src={`/.netlify/images?url=${user.image}&fit=cover&position=center&w=96`}
+						src={`/.netlify/images?url=${user.image}&fit=contain&position=center&w=96`}
 						alt="avatar"
 					/>
 				) : (
