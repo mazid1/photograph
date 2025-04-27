@@ -10,7 +10,7 @@ type PhotoDetailProps = {
 };
 
 function PhotoDetail({ photo }: PhotoDetailProps) {
-	const src = `/.netlify/images?url=${photo.src.original}&fit=cover&position=center`;
+	const src = `/.netlify/images?url=${photo.src.original}&fit=contain&position=center`;
 	const [isFit, setIsFit] = useState(false);
 
 	return (
