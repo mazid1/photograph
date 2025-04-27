@@ -10,7 +10,7 @@ type PhotoDownloaderProps = {
 };
 
 function PhotoDownloader({ photo }: PhotoDownloaderProps) {
-	const src = `/.netlify/images?url=${photo.src.original}&fit=cover&position=center&q=100`;
+	const src = `/.netlify/images?url=${photo.src.original}&fit=contain&position=center&q=100`;
 
 	const { width: originalWidth, height: originalHeight } = photo;
 
@@ -64,20 +64,21 @@ function PhotoDownloader({ photo }: PhotoDownloaderProps) {
 			// Actual download logic using Fetch API
 			let url = `${src}`;
 			let filename = photo.alt.trim().replaceAll(" ", "-");
+			const extension = `.${photo.src.original.split(".").pop()}`;
 			if (selectedOption === 0) {
 				url = photo.src.original;
 			} else if (selectedOption === 1) {
 				url += `&w=${largeWidth}`;
-				filename += `-${largeWidth}x${largeHeight}`;
+				filename += `-${largeWidth}x${largeHeight}${extension}`;
 			} else if (selectedOption === 2) {
 				url += `&w=${mediumWidth}`;
-				filename += `-${mediumWidth}x${mediumHeight}`;
+				filename += `-${mediumWidth}x${mediumHeight}${extension}`;
 			} else if (selectedOption === 3) {
 				url += `&w=${smallWidth}`;
-				filename += `-${smallWidth}x${smallHeight}`;
+				filename += `-${smallWidth}x${smallHeight}${extension}`;
 			} else if (selectedOption === 4) {
 				url += `&w=${state.width}`;
-				filename += `-${state.width}x${state.height}`;
+				filename += `-${state.width}x${state.height}${extension}`;
 			}
 
 			try {
