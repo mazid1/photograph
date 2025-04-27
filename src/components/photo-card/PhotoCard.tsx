@@ -27,11 +27,11 @@ function PhotoCard({ photo }: PhotoContainerProps) {
 			>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img
-					src={`/.netlify/images?url=${photo.src.original}&fit=cover&position=center&w=250`}
+					src={`/.netlify/images?url=${photo.src.original}&fit=contain&position=center&w=250`}
 					alt={photo.alt}
 					width={photo.width}
 					height={photo.height}
-					className="w-full h-full object-cover object-center"
+					className="w-full h-full object-contain object-center"
 					style={{ backgroundColor: photo.avg_color }}
 				/>
 				<LikeButtonRounded photo={photo} className="absolute top-2 right-2" />
