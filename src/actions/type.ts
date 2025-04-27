@@ -1,4 +1,4 @@
 export enum StoreType {
-  USER = "user",
-  PROFILE_PICTURE = "profile-picture",
+	USER = "user",
+	PROFILE_PICTURE = "profile-picture",
 }

@@ -1,31 +1,31 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 
 function Search() {
-  const [query, setQuery] = useState<string>("");
-  const router = useRouter();
+	const [query, setQuery] = useState<string>("");
+	const router = useRouter();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (query) {
-      router.push(`/search/${query}`);
-    }
-    setQuery("");
-  };
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (query) {
+			router.push(`/search/${query}`);
+		}
+		setQuery("");
+	};
 
-  return (
-    <form onSubmit={handleSubmit} className="form-control">
-      <input
-        name="query"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        type="text"
-        placeholder="Search"
-        className="input input-bordered w-24 sm:w-auto"
-      />
-    </form>
-  );
+	return (
+		<form onSubmit={handleSubmit} className="form-control">
+			<input
+				name="query"
+				value={query}
+				onChange={(e) => setQuery(e.target.value)}
+				type="text"
+				placeholder="Search"
+				className="input input-bordered w-24 sm:w-auto"
+			/>
+		</form>
+	);
 }
 
 export default Search;
